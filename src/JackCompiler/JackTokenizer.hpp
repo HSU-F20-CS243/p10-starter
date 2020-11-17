@@ -36,6 +36,7 @@ class JackTokenizer
 private:
 	string _file_to_process;
 	unordered_map<char, int> _symbols;
+	unordered_map<char, int> _whitespace;
 	bool _in_comment_mode = false;
 
 public:
@@ -60,6 +61,10 @@ public:
 		_symbols['>'] = 1;
 		_symbols['='] = 1;
 		_symbols['~'] = 1;
+
+		_whitespace[' '] = 1;
+		_whitespace['\t'] = 1;
+		_whitespace['\n'] = 1;
 	}
 
 	JackTokenizer()
@@ -109,6 +114,7 @@ public:
 	{
 		vector<vector<string>> result{};
 		ifstream to_process{ _file_to_process };
+		bool is_quote_mode = false;
 		if (to_process.is_open() == true)
 		{
 			while (to_process.good() == true)
@@ -117,14 +123,12 @@ public:
 				getline(to_process, line);
 				line = removeComments(line);
 
-				//skip 
-
 				istringstream input{ line };
 				vector<string> current_line{};
 				while (input.good() == true)
 				{
 					string next;
-					input >> next;
+					getline(input, next);
 					if (next.length() > 0)
 					{
 						//it's possible to have identifiers (and maybe keywords) mixed with symbols, e.g. class foo{
@@ -134,26 +138,55 @@ public:
 						while (text.good() == true)
 						{
 							char ch;
-							if (!(text >> ch))
+							if (!(text.get(ch)))
 							{
 								continue;
 							}
 							if (_symbols.find(ch) == _symbols.end())
 							{
-								current << ch;
+								//ignore spaces excpet when inside a string
+								if (_whitespace.find(ch) != _whitespace.end() && is_quote_mode == false)
+								{
+									string currentStr = current.str();
+									if (currentStr.length() > 0 && currentStr != " ")
+									{
+										current_line.push_back(currentStr);
+									}
+									current = ostringstream{};
+									continue;
+								}
+
+								//toggle between string and identifier
+								if (ch == '"')
+								{
+									current << ch;
+									if (is_quote_mode == true)
+									{
+										current_line.push_back(current.str());
+										current = ostringstream{};
+									}
+
+									//toggle quote mode
+									is_quote_mode = !is_quote_mode;
+								}
+								else
+								{
+									current << ch;
+								}
 							}
 							else
 							{
-								if (current.str().length() > 0)
+								string currentStr = current.str();
+								if (currentStr.length() > 0 && currentStr != " ")
 								{
-									current_line.push_back(current.str());
+									current_line.push_back(currentStr);
 								}
 								current = ostringstream{};
 								current_line.push_back(string{ ch });
 							}
 						}
 						string leftover = current.str();
-						if (leftover.length() > 0)
+						if (leftover.length() > 0 && leftover != " ")
 						{
 							current_line.push_back(leftover);
 						}
