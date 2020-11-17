@@ -65,9 +65,18 @@ public:
 		token->rawText = text;
 
 		//replace the three lines below with real code
-		token->keyword = Keyword::Unknown;
-		token->token = TokenType::Unknown;
-		token->symbol = Symbol::Unknown;
+
+		//Adam's start
+
+		//is this a keyword?
+		if (_keyword_map.find(text) != _keyword_map.end())
+		{
+			//this token is a keyword
+			token->keyword = _keyword_map[text];
+			token->token = TokenType::Keyword;
+		}
+		//TODO: figure out rest of token types
+		//else if...
 
 		return token;
 	}

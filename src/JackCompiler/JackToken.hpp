@@ -29,7 +29,7 @@ public:
 			break;
 
 		case TokenType::Keyword:
-			result << "<keyword>" << rawText << "</identifier>";
+			result << "<keyword>" << rawText << "</keyword>";
 			break;
 
 		case TokenType::StringConstant:
