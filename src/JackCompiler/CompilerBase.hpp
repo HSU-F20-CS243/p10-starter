@@ -2,6 +2,7 @@
 #include <queue>
 #include <sstream>
 #include "JackToken.hpp"
+#include "CompilerFactory.hpp"
 
 using namespace std;
 
@@ -9,4 +10,5 @@ class CompilerBase
 {
 public:
 	virtual void compile(queue<JackToken*>& tokens, ostringstream& result) = 0;
+
 };

@@ -8,6 +8,7 @@ class JackTokenFactory
 {
 private:
 	unordered_map<string, Keyword> _keyword_map;
+	unordered_map<char, int> _symbols;
 	static JackTokenFactory* _instance;
 
 	JackTokenFactory()
@@ -33,6 +34,26 @@ private:
 		_keyword_map["else"] = Keyword::Else;
 		_keyword_map["while"] = Keyword::While;
 		_keyword_map["return"] = Keyword::Return;
+
+		_symbols['{'] = 1;
+		_symbols['}'] = 1;
+		_symbols['('] = 1;
+		_symbols[')'] = 1;
+		_symbols['['] = 1;
+		_symbols[']'] = 1;
+		_symbols['.'] = 1;
+		_symbols[','] = 1;
+		_symbols[';'] = 1;
+		_symbols['+'] = 1;
+		_symbols['-'] = 1;
+		_symbols['*'] = 1;
+		_symbols['/'] = 1;
+		_symbols['&'] = 1;
+		_symbols['|'] = 1;
+		_symbols['<'] = 1;
+		_symbols['>'] = 1;
+		_symbols['='] = 1;
+		_symbols['~'] = 1;
 	}
 
 public:
@@ -59,24 +80,43 @@ public:
 	JackToken* tokenFromString(string text)
 	{
 		JackToken* token = new JackToken{};
+		token->keyword = Keyword::Unknown;
+		token->token = TokenType::Unknown;
 
 		//PROJECT 10 TODO: Use IF statements and Table 10.5 Lexical Elements to figure out what kind of token 
 		//the supplied text variable represents.  
 		token->rawText = text;
 
-		//replace the three lines below with real code
-
-		//Adam's start
-
-		//is this a keyword?
 		if (_keyword_map.find(text) != _keyword_map.end())
 		{
 			//this token is a keyword
 			token->keyword = _keyword_map[text];
 			token->token = TokenType::Keyword;
 		}
-		//TODO: figure out rest of token types
-		//else if...
+		else if (_symbols.find(text[0]) != _symbols.end() && text.length() == 1)
+		{
+			//token is a symbol
+			token->symbol = (Symbol)text[0];
+			token->token = TokenType::Symbol;
+		}
+		else if (text[0] == '"')
+		{
+			//token is a string constant
+			token->string_value = text;
+			token->token = TokenType::StringConstant;
+		}
+		else if (text[0] < '0' || text[0] > '9')
+		{
+			//token is an identifier
+			token->identifier = text;
+			token->token = TokenType::Identifier;
+		}
+		else
+		{
+			//integer constant
+			token->int_value = stoi(text);
+			token->token = TokenType::IntegerConstant;
+		}
 
 		return token;
 	}

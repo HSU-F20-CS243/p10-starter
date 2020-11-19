@@ -56,8 +56,8 @@ int main(int argc, char* argv[])
 	vector<string> files_to_process{};
 #ifdef _DEBUG
 	//makes debugging easier by allowing you to directly load in files w/o using command line
-	files_to_process.push_back("ArrayTest/Main.jack");
-	ofstream output_file{ "ArrayTest.xml" };
+	files_to_process.push_back("easyTest.jack");
+	ofstream output_file{ "easyTest.xml" };
 
 #else
 	ofstream output_file{};

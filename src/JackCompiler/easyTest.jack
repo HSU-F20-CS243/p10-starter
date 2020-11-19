@@ -1,0 +1,2 @@
+class Main {
+Main foo = 0;

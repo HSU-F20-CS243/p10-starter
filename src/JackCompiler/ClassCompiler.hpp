@@ -25,6 +25,9 @@ public:
 		tokens.pop();
 		result << "\t" << next->toString() << endl;
 
+		//add user defined class to the factory's list of known classes
+		CompilerFactory::defineUserClass(next->identifier);
+
 		//then a curly brace
 		next = tokens.front();
 		tokens.pop();

@@ -93,4 +93,9 @@
       <Filter>Header Files\Compiler</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="easyTest.jack">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
