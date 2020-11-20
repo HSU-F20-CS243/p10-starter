@@ -40,6 +40,11 @@ public:
 		nextCompiler->compile(tokens, result);
 		delete nextCompiler;
 
+		//close curly
+		next = tokens.front();
+		tokens.pop();
+		result << next->toString() << endl;
+
 		//close class tag
 		result << "</class>" << endl;
 	}
