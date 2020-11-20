@@ -5,7 +5,7 @@
 #include "CompilerBase.hpp"
 
 using namespace std;
-class ReturnCompiler : public CompilerBase
+class ReturnCompiler : public StatementCompiler
 {
 public:
 	virtual void compile(queue<JackToken*>& tokens, ostringstream& result)

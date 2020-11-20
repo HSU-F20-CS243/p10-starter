@@ -14,5 +14,9 @@ private:
 public:
 
 	static void defineUserClass(string class_name);
+	static bool isUserDefinedClass(string class_name);
+	static bool isType(JackToken* token);
+	static bool isTerm(JackToken* token);
 	static CompilerBase* fromTerm(queue<JackToken*>& tokens);
+	
 };

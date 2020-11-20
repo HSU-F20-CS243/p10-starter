@@ -2,10 +2,10 @@
 #include <queue>
 #include <sstream>
 #include "JackToken.hpp"
-#include "CompilerBase.hpp"
+#include "StatementCompiler.hpp"
 
 using namespace std;
-class IfCompiler : public CompilerBase
+class IfCompiler : public StatementCompiler
 {
 public:
 	virtual void compile(queue<JackToken*>& tokens, ostringstream& result)

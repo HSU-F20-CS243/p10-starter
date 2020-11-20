@@ -8,8 +8,4 @@ using namespace std;
 class StatementCompiler : public CompilerBase
 {
 public:
-	virtual void compile(queue<JackToken*>& tokens, ostringstream& result)
-	{
-
-	}
 };
