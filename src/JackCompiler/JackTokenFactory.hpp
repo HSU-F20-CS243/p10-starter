@@ -102,7 +102,7 @@ public:
 		else if (text[0] == '"')
 		{
 			//token is a string constant
-			token->string_value = text;
+			token->string_value = text.substr(1, text.size() - 2);
 			token->token = TokenType::StringConstant;
 		}
 		else if (text[0] < '0' || text[0] > '9')
