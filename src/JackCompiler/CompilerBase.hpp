@@ -2,7 +2,6 @@
 #include <queue>
 #include <sstream>
 #include "JackToken.hpp"
-#include "CompilerFactory.hpp"
 
 using namespace std;
 

@@ -92,6 +92,12 @@
     <ClCompile Include="CompilerFactory.cpp">
       <Filter>Header Files\Compiler</Filter>
     </ClCompile>
+    <ClCompile Include="ClassCompiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SubroutineCompiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="easyTest.jack">

@@ -164,8 +164,10 @@
     <ClInclude Include="WhileCompiler.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ClassCompiler.cpp" />
     <ClCompile Include="CompilerFactory.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SubroutineCompiler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="easyTest.jack" />

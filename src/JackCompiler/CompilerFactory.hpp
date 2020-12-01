@@ -18,5 +18,4 @@ public:
 	static bool isType(JackToken* token);
 	static bool isTerm(JackToken* token);
 	static CompilerBase* fromTerm(queue<JackToken*>& tokens);
-	
 };
